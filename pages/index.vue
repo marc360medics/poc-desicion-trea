@@ -1,6 +1,6 @@
 <template>
   <div style="width:90vw;height:90vh">
-    <baklava-editor :plug ="viewPlugin"></baklava-editor>
+    <baklava-editor :plugin="viewPlugin"></baklava-editor>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
       .build();
     // add node to editor
     this.editor.registerNodeType("SelectTestNode", SelectTestNode)
-    this.editor.registerNodeType("Infos", OutputNode)
+    this.editor.registerNodeType("OutputNode", OutputNode)
 
     },
     methods: {
