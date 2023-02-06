@@ -1,52 +1,68 @@
 <template>
-  <div style="width:90vw;height:90vh">
-    <baklava-editor :plugin="viewPlugin"></baklava-editor>
+  <div class="home">
+    <HeaderComponent :title="'POC decision tree'"/>
+    <div class="home_lib">
+      <h3> choose your library</h3>
+      <nav class="home_nav">
+        <nuxt-link to="/BackLava">BackLava</nuxt-link>
+        <nuxt-link to="/Flume">Flume</nuxt-link>
+        <nuxt-link to="/DiagramMaker">Diagram Maker</nuxt-link>
+      </nav>
+    </div>
   </div>
 </template>
 
 <script>
-import { Editor, NodeBuilder }  from "@baklavajs/core"
-import { ViewPlugin }           from "@baklavajs/plugin-renderer-vue"
-import { Engine }               from "@baklavajs/plugin-engine"
-import { InterfaceTypePlugin }  from "@baklavajs/plugin-interface-types"
-import { OptionPlugin }         from "@baklavajs/plugin-options-vue"
-import { OutputNode } from '@/components/node/OutputNode.ts'
+import HeaderComponent from "~/components/HeaderComponent.vue"
+
 export default {
-    data: () => ({
-        editor: new Editor(),
-        viewPlugin: new ViewPlugin(),
-        engine: new Engine(true),
-        intfTypePlugin: new InterfaceTypePlugin()
-    }),
-    created() {
-      this.editor.use(this.viewPlugin);
-      this.editor.use(this.engine)
-      this.editor.use(new OptionPlugin())
-      this.editor.use(this.intfTypePlugin)
-      this.intfTypePlugin.addType("number", "#00FF00");
-      this.viewPlugin.enableMinimap = true;
-    // create new node
-    const SelectTestNode = new NodeBuilder("SelectTestNode")
-      .addOption("Simple", "SelectOption", "A", undefined, { items: ["A", "B", "C"] })
-      .addOption("Advanced", "SelectOption", 3, undefined, { items: [
-          { text: "X", value: 1 },
-          { text: "Y", value: 2 },
-          { text: "Z", value: 3 },
-      ] })
-      .addOutputInterface("Simple")
-      .addOutputInterface("Advanced")
-      .onCalculate((n) => {
-          n.getInterface("Simple").value = n.getOptionValue("Simple");
-          n.getInterface("Advanced").value = n.getOptionValue("Advanced");
-      })
-      .build();
-    // add node to editor
-    this.editor.registerNodeType("SelectTestNode", SelectTestNode)
-    this.editor.registerNodeType("OutputNode", OutputNode)
-
-    },
-    methods: {
-
-    }
+    components: { HeaderComponent },
 }
 </script>
+
+<style scoped>
+h3 {
+  border-bottom: 1px solid black;
+}
+.home_lib {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #273640;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.29);
+  max-width: 30rem;
+  margin: auto;
+  margin-top: 3rem;
+}
+.home_nav {
+  display: flex;
+  flex-direction: column;
+}
+
+a:after {
+  content: '';
+  display: block;
+  margin: auto;
+  height: 1px;
+  width: 0;
+  background: transparent;
+  transition: width .5s ease, background-color .5s ease;
+}
+a:hover:after{
+  width: 100%;
+  background: #444;
+}
+
+</style>
+
+<style>
+a {
+  color: black;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+}
+body {
+  margin: 0;
+}
+</style>
