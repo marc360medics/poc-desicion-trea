@@ -20,10 +20,12 @@ export class OutputChoiceNode extends Node {
 
     public constructor() {
         super()
-        // modifié par add option qui permet de créer nos propre output contrairement a addInputInterface
-        this.addInputInterface('introduction', 'InputOption')
-        this.addInputInterface('question', 'InputOption')
-        this.addInputInterface('reponse', 'InputOption')
+        /**
+         * @params (name, component, defaultValue, addition properties)
+         */
+        this.addOption('Introduction', 'InputOption', 'Introduction', undefined)
+        this.addOption('Question', 'InputOption', 'Question', undefined)
+        this.addOption('Reponse', 'InputOption', 'Reponse', undefined)
     }
 
     public calculate() {
