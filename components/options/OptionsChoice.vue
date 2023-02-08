@@ -3,7 +3,7 @@
     <form class="container-form">
 
       <label for="introduciton">add introduction</label>
-      <editor-content :editor="editor" />
+      <TipTapEditor :placeholder="'editor'" :base-content="''"/>
 
       <label for="question">add question</label>
       <input v-model="items.question" type="text" name="question">
@@ -26,10 +26,11 @@
 import { mapState } from 'vuex'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import TipTapEditor from '../titapEditor/TipTapEditor.vue'
 
 export default {
   name: 'OptionIntroduction',
-  components: { EditorContent },
+  components: { EditorContent, TipTapEditor },
   data() {
     return {
       items: {
