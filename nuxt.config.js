@@ -38,6 +38,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend(config, { isDev, isClient }) {
+      config.resolve.alias.vue = "vue/dist/vue.common";
+    },
     babel:{
       plugins: [
         ['@babel/plugin-proposal-private-methods', { loose: true }]

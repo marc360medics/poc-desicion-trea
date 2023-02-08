@@ -1,8 +1,9 @@
 <template>
   <div class="modal">
     <div class="modal-items">
+      {{ choice }}
       <h4>introduction</h4>
-      <p>{{ choice.introduction }}</p>
+      <v-runtime-template :template="choice.introduction"/>
       <h4>Question</h4>
       <p>{{ choice.question }}</p>
     </div>
@@ -16,9 +17,11 @@
 
 <script>
 import { mapState } from "vuex";
+import VRuntimeTemplate from "v-runtime-template";
 
 export default {
   name: 'ModalTemplate',
+  components: { VRuntimeTemplate },
   data() {
     return {
       items: {}

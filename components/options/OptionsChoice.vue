@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <form class="container-form">
-
       <label for="introduciton">add introduction</label>
-      <TipTapEditor :placeholder="'editor'" :base-content="''"/>
+      <TipTapEditor v-model="items.introduction" :placeholder="'editor'" :base-content="''"/>
 
       <label for="question">add question</label>
       <input v-model="items.question" type="text" name="question">
