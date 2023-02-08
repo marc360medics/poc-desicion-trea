@@ -41,11 +41,11 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   max-width: 20rem;
   height: 50%;
   border-radius: 15px;
   margin: auto;
-  margin-top: 25%;
   background-color: white;
   padding: 1rem;
 }

@@ -3,7 +3,7 @@
     <form class="container-form">
 
       <label for="introduciton">add introduction</label>
-      <input v-model="items.introduction" type="text" name="introduction">
+      <editor-content :editor="editor" />
 
       <label for="question">add question</label>
       <input v-model="items.question" type="text" name="question">
@@ -24,10 +24,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import { Editor, EditorContent } from '@tiptap/vue-2'
+import StarterKit from '@tiptap/starter-kit'
 
 export default {
   name: 'OptionIntroduction',
-  components: { },
+  components: { EditorContent },
   data() {
     return {
       items: {
@@ -35,18 +37,30 @@ export default {
         introduction: '',
         question: '',
       },
+      editor: null,
       responseAdd: '',
     }
   },
   computed: {
     ...mapState(["choice"])
   },
+  mounted() {
+    this.editor = new Editor({
+      content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+      extensions: [
+        StarterKit,
+      ],
+    })
+  },
+  beforeDestroy() {
+    this.editor.destroy()
+  },
   methods: {
     getTemplate() {
       this.$store.commit('SET_CHOICE', this.items)
       this.$store.commit('SET_SHOW_MODAL', true)
     }
-  }
+  },
 }
 </script>
 

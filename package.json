@@ -13,6 +13,9 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
+    "@tiptap/pm": "^2.0.0-beta.213",
+    "@tiptap/starter-kit": "^2.0.0-beta.213",
+    "@tiptap/vue-2": "^2.0.0-beta.213",
     "baklavajs": "^1.10.2",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
