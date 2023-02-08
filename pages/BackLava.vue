@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <div class="black_lava">
+  <div class="black_lava">
+    <div>
       <baklava-editor style="width:90vw;height:90vh" :plugin="viewPlugin"></baklava-editor>
     </div>
-    <button @click="getValue($event)">click</button>
+    <button @click="getValue($event)">GET JSON CLICK HERE !</button>
     <ModalTemplate v-if="showModal"/>
+    <p class="jsonData">{{ jsonDataTree }}</p>
   </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
         reponseValue: ''
     }),
     computed: {
-      ...mapState(['showModal'])
+      ...mapState(['showModal', 'jsonDataTree'])
     },
     created() {
       this.editor.use(this.viewPlugin);
@@ -51,9 +52,7 @@ export default {
     },
     methods: {
       getValue() {
-       this.editor.nodes.forEach((element) => {
-        element.options.forEach((option) => console.log('option', option.value))
-       });
+        this.$store.commit('SET_JSON_DATA_TREE', this.editor.save())
       }
     }
 }
@@ -62,10 +61,17 @@ export default {
 <style scoped>
 .black_lava {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 1rem;
 }
+button {
+margin-top: 1rem;
+}
+.jsonData {
+  max-width: 20rem;
 
+}
 </style>
 
 <style>

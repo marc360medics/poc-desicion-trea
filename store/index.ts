@@ -7,7 +7,8 @@ interface Entries {
 
 interface State {
   choice: Entries,
-  showModal: boolean
+  showModal: boolean,
+  jsonDataTree: string
 }
 
 
@@ -17,7 +18,7 @@ export const state = () => ({
     question: '',
     responses: []
   } as Entries,
-
+  jsonDataTree: '' as string,
   showModal: false as boolean
 })
 
@@ -29,5 +30,8 @@ export const mutations = {
 
   SET_SHOW_MODAL(state: State, isShow: boolean) {
     state.showModal = isShow
+  },
+  SET_JSON_DATA_TREE(state: State, tree: string) {
+    state.jsonDataTree = JSON.stringify(tree)
   }
 }
