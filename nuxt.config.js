@@ -12,6 +12,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: "https://unpkg.com/gojs@2.3.1/release/go.js",
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

@@ -18,6 +18,7 @@
         <input type="checkBox" name="response">
       </div>
     </form>
+    <button>+</button>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
       <nav class="home_nav">
         <nuxt-link to="/BackLava">BackLava</nuxt-link>
         <nuxt-link to="/Flume">Flume</nuxt-link>
-        <nuxt-link to="/DiagramMaker">Diagram Maker</nuxt-link>
+        <nuxt-link to="/GoJs">GoJs</nuxt-link>
       </nav>
     </div>
   </div>
