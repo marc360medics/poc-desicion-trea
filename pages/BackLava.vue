@@ -1,7 +1,15 @@
 <template>
   <div class="black_lava">
-    <div>
-      <baklava-editor style="width:90vw;height:90vh" :plugin="viewPlugin"></baklava-editor>
+    <div class="treeEditor">
+      <baklava-editor :plugin="viewPlugin"></baklava-editor>
+      <div class="editorPart">
+        <div class="introductionParams">
+
+        </div>
+        <div class="questionParams">
+
+        </div>
+      </div>
     </div>
     <button @click="getValue($event)">GET JSON CLICK HERE !</button>
     <ModalTemplate v-if="showModal"/>
@@ -19,9 +27,11 @@ import { mapState }             from "vuex"
 import { OutputNode }           from '@/components/node/OutputNode.ts'
 import OptionsChoice            from "~/components/options/OptionsChoice.vue"
 import ModalTemplate            from "~/components/ModalTemplate.vue"
+import ReponseComponents from "~/components/options/ReponseComponents.vue"
+
 
 export default {
-  components: { OptionsChoice, ModalTemplate },
+  components: { OptionsChoice, ModalTemplate, ReponseComponents },
     data: () => ({
         editor: new Editor(),
         viewPlugin: new ViewPlugin(),
@@ -33,25 +43,45 @@ export default {
       ...mapState(['showModal', 'jsonDataTree'])
     },
     created() {
-      this.editor.use(this.viewPlugin);
+      this.editor.use(this.viewPlugin)
       this.editor.use(this.engine)
       this.editor.use(new OptionPlugin())
       this.editor.use(this.intfTypePlugin)
       this.intfTypePlugin.addType("number", "#00FF00");
-
       this.viewPlugin.registerOption('ChoiceNode', OptionsChoice)
+      this.viewPlugin.registerOption('ResponseNode', ReponseComponents)
+
     // create new node
     const ChoiceNode = new NodeBuilder("choix")
       .addOption('choiceNode', 'ChoiceNode','Question', undefined )
-      .addOutputInterface('reponse')
+      .addOutputInterface('output')
+      .build()
+
+    const ResponseStep = new NodeBuilder("response")
+      .addOption('response', 'ResponseNode','Response', undefined )
+      .addInputInterface('input')
+      .addOutputInterface('output')
       .build()
 
     this.editor.registerNodeType("OutputNode", OutputNode)
     this.editor.registerNodeType("ChoiceSelect", ChoiceNode)
-
+    this.editor.registerNodeType("ResponseStep", ResponseStep)
     },
+    // @TODO: tenter de recupérer la totalité des réponse qui sont connécté au parent
+
     methods: {
-      getValue() {
+      // @TODO: recuperer toute les data necessaire du json mise en place par la lib et la reformater comme on le souhaite
+      dataTreeReview() {
+
+      },
+      getValue(){
+        // @TODO:  recuperer le noeud séléctionner
+        this.editor.nodes.forEach((node) => {
+         const getcurrent = document.querySelector(`#${node.id}`)
+          if(getcurrent.classList.contains("--selected")) {
+            console.log(node)
+          }
+        })
         this.$store.commit('SET_JSON_DATA_TREE', this.editor.save())
       }
     }
@@ -70,7 +100,26 @@ margin-top: 1rem;
 }
 .jsonData {
   max-width: 20rem;
-
+}
+.node-editor {
+  width: 90vh;
+  height: 90vh;
+}
+.treeEditor {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.editorPart {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  border: 1px solid black;
+}
+.introductionParams, .questionParams {
+  border: 1px solid black;
+  height: 50%;
+  border-radius: 35px;
 }
 </style>
 

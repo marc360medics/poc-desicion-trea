@@ -7,18 +7,10 @@
       <label for="question">add question</label>
       <input v-model="items.question" type="text" name="question">
 
-      <label for="response">add response</label>
-      <input v-model="responseAdd" type="text" name="response">
-
       <button class="container-form__btn" @click.prevent="items.responses.push(responseAdd)">add reponse in list</button>
       <button class="container-form__btn" @click.prevent="getTemplate()">generate template</button>
 
-      <div v-for="(response, i) of items.responses" :key="i">
-        <label for="response">{{ response }}</label>
-        <input type="checkBox" name="response">
-      </div>
     </form>
-    <button>+</button>
   </div>
 </template>
 
@@ -34,7 +26,6 @@ export default {
   data() {
     return {
       items: {
-        responses: ['malade', 'je veux mourir', 'je meurt'],
         introduction: '',
         question: '',
       },
