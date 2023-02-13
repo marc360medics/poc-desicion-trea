@@ -4,9 +4,11 @@
     <div class="home_lib">
       <h3> choose your library</h3>
       <nav class="home_nav">
-        <nuxt-link to="/BackLava">BackLava</nuxt-link>
+        <nuxt-link to="/BackLava">BackLava (a voir...)</nuxt-link>
         <nuxt-link to="/Flume">Flume</nuxt-link>
-        <nuxt-link to="/GoJs">GoJs</nuxt-link>
+        <nuxt-link to="/GoJs">GoJs (payante)</nuxt-link>
+        <nuxt-link to="/FlowChart">FlowChart (a faire)</nuxt-link>
+        <nuxt-link to="/FlowChart">reteJs (a faire)</nuxt-link>
       </nav>
     </div>
   </div>
