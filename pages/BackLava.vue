@@ -66,16 +66,18 @@ export default {
     this.editor.registerNodeType("OutputNode", OutputNode)
     this.editor.registerNodeType("ChoiceSelect", ChoiceNode)
     this.editor.registerNodeType("ResponseStep", ResponseStep)
-    this.$nuxt.$emit('EditorSaved', this.editor)
+    this.$nuxt.$on('setJsonTree', () => {
+      this.getValue()
+    })
     },
     // @TODO: tenter de recupérer la totalité des réponse qui sont connécté au parent
 
     methods: {
       // @TODO: recuperer toute les data necessaire du json mise en place par la lib et la reformater comme on le souhaite
       dataTreeReview() {
-
       },
       getValue(){
+
         this.$store.commit('SET_JSON_DATA_TREE', this.editor.save())
       }
     }

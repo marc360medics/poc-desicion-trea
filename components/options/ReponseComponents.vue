@@ -2,8 +2,11 @@
   <div class="container">
     <form class="container-form">
       <label for="response">add response</label>
-      <input v-model="items.responses" type="text" name="question">
+      <input v-model="items.response" type="text" name="question">
     </form>
+    <button class="container-form__btn" @click.prevent="RegisterNode($event)">
+        save step
+      </button>
   </div>
 </template>
 
@@ -14,7 +17,12 @@ export default {
   data() {
     return {
       items: {
-        responses: '',
+        id: '',
+        outputId: '',
+        inputId: '',
+        type: 'response',
+        response: '',
+        children: [],
       },
       editor: null,
     }
@@ -22,6 +30,13 @@ export default {
   computed: {
   },
   methods: {
+    RegisterNode(e) {
+      this.items.id = e.target.closest('.node').id
+      this.items.outputId = e.target.closest('.node').querySelector('.node-interface.--output').id
+      this.items.inputId = e.target.closest('.node').querySelector('.node-interface.--input').id
+      this.$nuxt.$emit('setJsonTree', this.items)
+      this.$store.commit('SET_NODE_TREE', this.items)
+    },
   },
 }
 </script>

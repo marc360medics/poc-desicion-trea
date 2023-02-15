@@ -24,7 +24,7 @@ import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
 import { ViewPlugin } from '@baklavajs/plugin-renderer-vue'
 import TipTapEditor from '../titapEditor/TipTapEditor.vue'
-import BackLavaVue from '~/pages/BackLava.vue'
+
 
 export default {
   name: 'OptionIntroduction',
@@ -39,6 +39,7 @@ export default {
         type: 'choice',
         introduction: '',
         question: '',
+        children: [],
       },
       connections: '',
       editor: null,
@@ -62,7 +63,7 @@ export default {
       this.items.id = e.target.closest('.node').id
       this.items.outputId = e.target.closest('.node').querySelector('.node-interface.--output').id
       this.items.inputId = e.target.closest('.node').querySelector('.node-interface.--input').id
-
+      this.$nuxt.$emit('setJsonTree', this.items)
       this.$store.commit('SET_NODE_TREE', this.items)
     },
     getTemplate() {
