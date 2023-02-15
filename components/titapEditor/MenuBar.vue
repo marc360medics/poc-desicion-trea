@@ -27,11 +27,11 @@
           />
           <menu-item v-else :key="`idontknow${i}`" v-bind="item" />
       </template>
-      <overlay-loader :active.sync="isUploading" :is-full-page="true">
+      <!-- <overlay-loader :active.sync="isUploading" :is-full-page="true">
           <slot slot="after">
               <p>{{uploadProgressMessage()}}</p>
           </slot>
-      </overlay-loader>
+      </overlay-loader> -->
   </div>
 </template>
 

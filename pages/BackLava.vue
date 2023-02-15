@@ -3,17 +3,17 @@
     <div class="treeEditor">
       <baklava-editor :plugin="viewPlugin"></baklava-editor>
       <div class="editorPart">
-        <div class="introductionParams">
-
-        </div>
-        <div class="questionParams">
-
+        <div class="DataTree">
+          <h3>node tree que je veux</h3>
+          <pre>{{ nodeTree }}</pre>
+          <hr>
+          <h3>node tree qu'on nous donne </h3>
+          <pre>{{ jsonDataTree }}</pre>
         </div>
       </div>
     </div>
     <button @click="getValue($event)">GET JSON CLICK HERE !</button>
     <ModalTemplate v-if="showModal"/>
-    <p class="jsonData">{{ jsonDataTree }}</p>
   </div>
 </template>
 
@@ -29,7 +29,6 @@ import OptionsChoice            from "~/components/options/OptionsChoice.vue"
 import ModalTemplate            from "~/components/ModalTemplate.vue"
 import ReponseComponents from "~/components/options/ReponseComponents.vue"
 
-
 export default {
   components: { OptionsChoice, ModalTemplate, ReponseComponents },
     data: () => ({
@@ -40,7 +39,7 @@ export default {
         reponseValue: ''
     }),
     computed: {
-      ...mapState(['showModal', 'jsonDataTree'])
+      ...mapState(['showModal', 'nodeTree', 'jsonDataTree'])
     },
     created() {
       this.editor.use(this.viewPlugin)
@@ -55,6 +54,7 @@ export default {
     const ChoiceNode = new NodeBuilder("choix")
       .addOption('choiceNode', 'ChoiceNode','Question', undefined )
       .addOutputInterface('output')
+      .addInputInterface('input')
       .build()
 
     const ResponseStep = new NodeBuilder("response")
@@ -66,6 +66,7 @@ export default {
     this.editor.registerNodeType("OutputNode", OutputNode)
     this.editor.registerNodeType("ChoiceSelect", ChoiceNode)
     this.editor.registerNodeType("ResponseStep", ResponseStep)
+    this.$nuxt.$emit('EditorSaved', this.editor)
     },
     // @TODO: tenter de recupérer la totalité des réponse qui sont connécté au parent
 
@@ -75,13 +76,6 @@ export default {
 
       },
       getValue(){
-        // @TODO:  recuperer le noeud séléctionner
-        this.editor.nodes.forEach((node) => {
-         const getcurrent = document.querySelector(`#${node.id}`)
-          if(getcurrent.classList.contains("--selected")) {
-            console.log(node)
-          }
-        })
         this.$store.commit('SET_JSON_DATA_TREE', this.editor.save())
       }
     }

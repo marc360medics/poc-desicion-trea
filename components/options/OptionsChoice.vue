@@ -2,14 +2,18 @@
   <div class="container">
     <form class="container-form">
       <label for="introduciton">add introduction</label>
-      <TipTapEditor v-model="items.introduction" :placeholder="'editor'" :base-content="''"/>
+      <TipTapEditor
+        v-model="items.introduction"
+        :placeholder="'editor'"
+        :base-content="''"
+      />
 
       <label for="question">add question</label>
-      <input v-model="items.question" type="text" name="question">
+      <input v-model="items.question" type="text" name="question" />
 
-      <button class="container-form__btn" @click.prevent="items.responses.push(responseAdd)">add reponse in list</button>
-      <button class="container-form__btn" @click.prevent="getTemplate()">generate template</button>
-
+      <button class="container-form__btn" @click.prevent="RegisterNode($event)">
+        save step
+      </button>
     </form>
   </div>
 </template>
@@ -18,40 +22,52 @@
 import { mapState } from 'vuex'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import { ViewPlugin } from '@baklavajs/plugin-renderer-vue'
 import TipTapEditor from '../titapEditor/TipTapEditor.vue'
+import BackLavaVue from '~/pages/BackLava.vue'
 
 export default {
   name: 'OptionIntroduction',
   components: { EditorContent, TipTapEditor },
   data() {
     return {
+      plugin: new ViewPlugin(),
       items: {
+        id: '',
+        outputId: '',
+        inputId: '',
+        type: 'choice',
         introduction: '',
         question: '',
       },
+      connections: '',
       editor: null,
       responseAdd: '',
     }
   },
   computed: {
-    ...mapState(["choice"])
+    ...mapState(['choice', 'jsonDataTree']),
   },
   mounted() {
     this.editor = new Editor({
       content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-      extensions: [
-        StarterKit,
-      ],
+      extensions: [StarterKit],
     })
   },
   beforeDestroy() {
     this.editor.destroy()
   },
   methods: {
+    RegisterNode(e) {
+      this.items.id = e.target.closest('.node').id
+      this.items.outputId = e.target.closest('.node').querySelector('.node-interface.--output').id
+      this.items.inputId = e.target.closest('.node').querySelector('.node-interface.--input').id
+
+      this.$store.commit('SET_NODE_TREE', this.items)
+    },
     getTemplate() {
-      this.$store.commit('SET_CHOICE', this.items)
       this.$store.commit('SET_SHOW_MODAL', true)
-    }
+    },
   },
 }
 </script>

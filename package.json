@@ -40,6 +40,7 @@
     "sigma": "^2.4.0",
     "v-runtime-template": "^1.10.0",
     "vue": "^2.7.10",
+    "vue-property-decorator": "^9.1.2",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"
   },
