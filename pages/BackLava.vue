@@ -39,7 +39,7 @@ export default {
         reponseValue: ''
     }),
     computed: {
-      ...mapState(['showModal', 'nodeTree', 'jsonDataTree'])
+      ...mapState('BakLavaStore', ['showModal', 'nodeTree', 'jsonDataTree'])
     },
     created() {
       this.editor.use(this.viewPlugin)
@@ -78,7 +78,7 @@ export default {
       },
       getValue(){
 
-        this.$store.commit('SET_JSON_DATA_TREE', this.editor.save())
+        this.$store.commit('BakLavaStore/SET_JSON_DATA_TREE', this.editor.save())
       }
     }
 }

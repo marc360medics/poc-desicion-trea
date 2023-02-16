@@ -47,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['choice', 'jsonDataTree']),
+    ...mapState('BakLavaStore', ['choice', 'jsonDataTree']),
   },
   mounted() {
     this.editor = new Editor({
@@ -64,11 +64,11 @@ export default {
       this.items.outputId = e.target.closest('.node').querySelector('.node-interface.--output').id
       this.items.inputId = e.target.closest('.node').querySelector('.node-interface.--input').id
       this.$nuxt.$emit('setJsonTree', this.items)
-      this.$store.commit('SET_NODE_TREE', this.items)
+      this.$store.dispatch('BakLavaStore/findNode', this.items)
     },
-    getTemplate() {
-      this.$store.commit('SET_SHOW_MODAL', true)
-    },
+    // getTemplate() {
+    //   this.$store.commit('SET_SHOW_MODAL', true)
+    // },
   },
 }
 </script>
