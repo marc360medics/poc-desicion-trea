@@ -1,16 +1,16 @@
 <template>
   <div class="modal">
     <div class="modal-items">
-      {{ choice }}
+      <img class="cross" src="@/assets/Vector.svg" @click="closeModal()">
       <h4>introduction</h4>
-      <v-runtime-template :template="choice.introduction"/>
+      <v-runtime-template :template="itemsRead.introduction"/>
       <h4>Question</h4>
-      <p>{{ choice.question }}</p>
-    </div>
-    <h4>response</h4>
-    <div v-for="(response, i) of choice.responses" :key="i" class="modal-response">
-      <label for="response">{{ response }}</label>
-      <input type="checkBox" name="response">
+      <p>{{ itemsRead.question }}</p>
+      <h4>Reponse</h4>
+      <div v-for="(response, i) of responses" :key="i">
+        <label :for="response">{{ response }}</label>
+        <input type="checkBox" :name="response">
+      </div>
     </div>
   </div>
 </template>
@@ -24,14 +24,33 @@ export default {
   components: { VRuntimeTemplate },
   data() {
     return {
-      items: {}
+      items: [],
+      itemsIndex: 0,
+      itemsRead: {},
+      responses: []
     }
   },
   computed: {
-   ...mapState(["choice"])
+   ...mapState("BakLavaStore",["nodeTree"])
+  },
+  mounted() {
+   this.nodeTree.nodes.forEach((node) => {
+    this.items.push(node)
+    if(node.children) {
+      node.children.forEach(({type, response}) => {
+        if(type === 'response') {
+          this.responses.push(response)
+          console.log(this.responses)
+        }
+      } )
+    }
+   })
+   this.itemsRead = this.items[this.itemsIndex]
   },
   methods: {
-
+    closeModal() {
+      this.$store.commit('BakLavaStore/SHOW_MODAL', false)
+    }
   },
 }
 </script>
@@ -45,22 +64,30 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  max-width: 20rem;
+  backdrop-filter: blur(4px);
+}
+.modal-items {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  min-width: 20rem;
   height: 50%;
   border-radius: 15px;
   margin: auto;
   background-color: white;
   padding: 1rem;
 }
-.modal-items {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-}
 h4 {
   text-align: center;
 }
 p {
   margin: 0
+}
+.cross {
+  position: relative;
+  left: 18.6rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 </style>

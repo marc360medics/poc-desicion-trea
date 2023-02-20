@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <button @click="getValue($event)">GET JSON CLICK HERE !</button>
+    <button @click="isShow()">template</button>
     <ModalTemplate v-if="showModal"/>
   </div>
 </template>
@@ -73,12 +73,12 @@ export default {
     // @TODO: tenter de recupérer la totalité des réponse qui sont connécté au parent
 
     methods: {
-      // @TODO: recuperer toute les data necessaire du json mise en place par la lib et la reformater comme on le souhaite
-      dataTreeReview() {
+      isShow() {
+        this.$store.commit('BakLavaStore/SHOW_MODAL', true)
       },
-      getValue(){
-
-        this.$store.commit('BakLavaStore/SET_JSON_DATA_TREE', this.editor.save())
+      getValue() {
+        const saveEditor = this.editor.save()
+        this.$store.commit('BakLavaStore/SET_JSON_DATA_TREE', saveEditor)
       }
     }
 }

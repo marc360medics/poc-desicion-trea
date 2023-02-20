@@ -3,7 +3,9 @@ import { BakLavaState, Node } from './state'
 export function SET_NODE_TREE(state: BakLavaState, data: Node) {
   state.nodeTree.nodes.push(data)
 }
-
+export function SHOW_MODAL(state: BakLavaState, isShow: boolean) {
+  state.showModal = isShow
+}
 export function SET_JSON_DATA_TREE(state: BakLavaState, tree: any) {
 
   state.nodeTree.connections = tree.connections

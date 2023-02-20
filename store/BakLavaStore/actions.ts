@@ -22,6 +22,5 @@ function test(nodes: any, data: any): boolean {
          isFind = test(node.children, data)
     }
   })
-  console.log('ok')
   return isFind
 }
