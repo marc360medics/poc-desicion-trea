@@ -37,10 +37,9 @@ export default {
    this.nodeTree.nodes.forEach((node) => {
     this.items.push(node)
     if(node.children) {
-      node.children.forEach(({type, response}) => {
+      node.children.forEach(({ type, response }) => {
         if(type === 'response') {
           this.responses.push(response)
-          console.log(this.responses)
         }
       } )
     }
